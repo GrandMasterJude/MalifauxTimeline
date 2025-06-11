@@ -264,4 +264,11 @@ label.timeline-info {
         max-height: 45vh;
         overflow-y: auto;
     }
+
+    .timeline-container,
+    .timeline-event-dot,
+    .timeline-container * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
 }

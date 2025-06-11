@@ -99,34 +99,6 @@ label.timeline-info {
     /* height: 5000px; */
 }
 
-/* #the-falling-star.timeline-event-date {
-    left: 5%;
-    top: 225px;
-}
-
-#the-journey-east .timeline-event-date {
-    right: 15%;
-    top: 430px;
-}
-
-#blood-of-my-blood .timeline-event-date {
-    left: 10%;
-    top: 2400px;
-
-}
-
-#the-living-forest .timeline-event-date {
-    right: 30%;
-    top: 2700px;
-
-}
-
-#the-rise-of-the-dragon .timeline-event-date {
-    left: 20%;
-    top: 2910px;
-
-} */
-
 /* Add these styles to your existing index.css */
 
 /* Clickable event dots */
@@ -250,6 +222,10 @@ label.timeline-info {
         flex-direction: column;
     }
 
+    .timeline-container {
+        cursor: pointer;
+    }
+
     .info-container {
         position: sticky;
         bottom: 0;
@@ -286,6 +262,6 @@ label.timeline-info {
 
     .timeline-info.active {
         max-height: 45vh;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 }

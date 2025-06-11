@@ -75,6 +75,27 @@ function hideAllInfoPanels() {
     });
 }
 
+// Hide info container on mobile
+function hideInfoContainer() {
+    if (isMobile()) {
+        infoContainer.style.display = 'none';
+        currentActiveEvent = null;
+        clearActiveStates();
+    }
+}
+
+// Show info container on mobile
+function showInfoContainer() {
+    if (isMobile()) {
+        infoContainer.style.display = 'block';
+    }
+}
+
+// Check if we're on mobile/small screen
+function isMobile() {
+    return window.innerWidth <= 768;
+}
+
 // Show specific info panel with smooth transition
 function showInfoPanel(infoId) {
     // Don't reload if same event
@@ -112,21 +133,30 @@ function clearActiveStates() {
 // Handle click events using event delegation for better performance
 function handleTimelineClick(event) {
     const clickedDot = event.target.closest('.timeline-event-dot');
-    if (!clickedDot) return;
     
-    const clickedDate = clickedDot.dataset.date;
-    const infoId = dateToInfoMap[clickedDate];
-    
-    if (infoId) {
-        // Update visual states
-        clearActiveStates();
-        clickedDot.classList.add('active');
+    if (clickedDot) {
+        // Clicked on an event dot
+        const clickedDate = clickedDot.dataset.date;
+        const infoId = dateToInfoMap[clickedDate];
         
-        // Show corresponding info panel
-        showInfoPanel(infoId);
-        
-        // Optional: Log for debugging
-        console.log(`Showing info for: ${clickedDate} -> ${infoId}`);
+        if (infoId) {
+            // Update visual states
+            clearActiveStates();
+            clickedDot.classList.add('active');
+            
+            // Show info container on mobile if hidden
+            showInfoContainer();
+            
+            // Show corresponding info panel
+            showInfoPanel(infoId);
+
+        }
+    } else {
+        // Clicked on empty timeline area
+        if (isMobile()) {
+            // On mobile, hide the info container when clicking empty areas
+            hideInfoContainer();
+        }
     }
 }
 
@@ -135,15 +165,34 @@ function initializeTimeline() {
     // Hide all info panels initially
     hideAllInfoPanels();
     
+    // On mobile, start with info container hidden
+    if (isMobile()) {
+        infoContainer.style.display = 'none';
+    }
+    
     // Create clickable dots
     initializeEventDots();
     
     // Add click event listener using event delegation
     timelineContainer.addEventListener('click', handleTimelineClick);
     
+    // Handle window resize to manage mobile/desktop transitions
+    window.addEventListener('resize', handleResize);
+    
     // Optional: Show first event by default
-    // showInfoPanel('the-falling-star');
-    // document.querySelector('[data-date="6000 BC"]')?.classList.add('active');
+    // showInfoPanel('old-malifaux');
+    // document.querySelector('[data-date="????"]')?.classList.add('active');
+}
+
+// Handle window resize events
+function handleResize() {
+    if (!isMobile()) {
+        // On desktop, always show info container
+        infoContainer.style.display = 'block';
+    } else if (!currentActiveEvent) {
+        // On mobile, hide info container if no event is active
+        infoContainer.style.display = 'none';
+    }
 }
 
 // Wait for DOM to be fully loaded
@@ -151,11 +200,4 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeTimeline);
 } else {
     initializeTimeline();
-}
-
-// Performance monitoring (remove in production)
-if (window.performance) {
-    window.addEventListener('load', () => {
-        console.log('Timeline fully loaded in:', window.performance.now(), 'ms');
-    });
 }

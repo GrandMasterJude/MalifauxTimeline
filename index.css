@@ -1,0 +1,291 @@
+:root {
+    interpolate-size: allow-keywords;
+  }
+
+body {
+    background-color: #010101;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    margin: 0;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: center;
+    color: #f0f0f0;
+    height: 20rem;
+}
+
+.timeline-container {
+    flex-basis: 50%;
+}
+
+.timeline-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.timeline-date {
+    color: #666666;
+    font-size: 4rem;
+    border-bottom: #666666 2px solid;
+    width: 100%;
+    text-align: right;
+    /* padding: 0 2rem 0 0; */
+}
+
+.timeline-content .timeline-info {
+    color: #f0f0f0;
+    width: 100%;
+}
+
+#id-6000BC {
+    height: 25rem;
+}
+
+#id-5000BC {
+    height: 25rem;
+}
+
+#id-4000BC {
+    height: 25rem;
+}
+
+#id-3000BC {
+    height: 25rem;
+}
+
+#id-2000BC {
+    height: 25rem;
+}
+
+#id-1000BC {
+    height: 25rem;
+}
+
+#id-0 {
+    height: 25rem;
+}
+
+#id-1000AD {
+    height: 25rem;
+}
+
+#id-1500AD {
+    height: 25rem;
+}
+
+label.timeline-info {
+    position: sticky;
+    top: 20px;
+    display: none;
+    padding: 1rem;
+    color:#010101;
+    transition: 0.5s;
+}
+
+.timeline-event-date {
+    position: absolute;
+    color: #f0f0f0;
+}
+
+.info-container {
+    background-color: #f0f0f0;
+    color: #010101;
+    flex-basis: 50%;
+    width: 50%;
+    /* height: 5000px; */
+}
+
+/* #the-falling-star.timeline-event-date {
+    left: 5%;
+    top: 225px;
+}
+
+#the-journey-east .timeline-event-date {
+    right: 15%;
+    top: 430px;
+}
+
+#blood-of-my-blood .timeline-event-date {
+    left: 10%;
+    top: 2400px;
+
+}
+
+#the-living-forest .timeline-event-date {
+    right: 30%;
+    top: 2700px;
+
+}
+
+#the-rise-of-the-dragon .timeline-event-date {
+    left: 20%;
+    top: 2910px;
+
+} */
+
+/* Add these styles to your existing index.css */
+
+/* Clickable event dots */
+.timeline-event-dot {
+    position: absolute;
+    background: #f0f0f0;
+    color: #010101;
+    padding: 12px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 8px rgba(240, 240, 240, 0.2);
+    z-index: 10;
+    user-select: none;
+    text-align: center;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeline-event-dot:hover {
+    background: #ffffff;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(240, 240, 240, 0.4);
+    border-color: #666666;
+}
+
+.timeline-event-dot.active {
+    background: #666666;
+    color: #f0f0f0;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(102, 102, 102, 0.6);
+    border-color: #f0f0f0;
+}
+
+/* Date styling within dots */
+.dot-date {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+    line-height: 1;
+}
+
+/* Title styling within dots */
+.dot-title {
+    font-size: 0.75rem;
+    font-weight: normal;
+    opacity: 0.8;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.timeline-event-dot.active .dot-title {
+    opacity: 1;
+    font-weight: 500;
+}
+
+/* Info panel transitions */
+.timeline-info {
+    padding: 2rem;
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.timeline-info.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-info h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #010101;
+}
+
+.timeline-info-date {
+    font-size: 1.2rem;
+    color: #666666;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-info p {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+/* Improve timeline container for better dot positioning */
+.timeline-container {
+    position: relative;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+/* Add subtle scroll indicator */
+.timeline-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.timeline-container::-webkit-scrollbar-track {
+    background: #010101;
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+    background: #666666;
+    border-radius: 3px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb:hover {
+    background: #888888;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .info-container {
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+    }
+    
+    .timeline-container,
+    .info-container {
+        flex-basis: 100%;
+        width: 100%;
+    }
+    
+    .timeline-event-dot {
+        padding: 8px 12px;
+        min-width: 100px;
+    }
+    
+    .dot-date {
+        font-size: 0.8rem;
+    }
+    
+    .dot-title {
+        font-size: 0.65rem;
+    }
+    
+    .timeline-info {
+        padding: 1rem;
+    }
+    
+    .timeline-info h2 {
+        font-size: 1.5rem;
+    }
+
+    .timeline-info.active {
+        max-height: 45vh;
+        overflow-y: scroll;
+    }
+}

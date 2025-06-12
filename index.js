@@ -14,11 +14,15 @@ const dateToInfoMap = {
     '500 BC': 'blood-of-my-blood',
     '220 AD': 'the-living-forest',
     '770 AD': 'the-rise-of-the-dragon',
-    '6000 BC': 'the-falling-star',
-    '5400 BC': 'the-journey-east',
-    '500 BC': 'blood-of-my-blood',
-    '220 AD': 'the-living-forest',
-    '770 AD': 'the-rise-of-the-dragon'
+    '1293 AD': 'the-masamune-nihonto',
+    '1332 AD': 'glimpses-of-huitzilopochtli',
+    '1575 AD': 'the-fury-of-horomatangi',
+    '1642 AD': 'an-empire-of-miracles',
+    '1780 AD': 'the-formation-of-the-council',
+    '1787 AD': 'the-great-breach',
+    '1788 - 1790 AD': 'a-new-age',
+    '1791 AD': 'the-first-resurrectionist',
+
 };
 
 // Track currently active event to avoid unnecessary updates
@@ -33,7 +37,16 @@ function initializeEventDots() {
         { date: '5400 BC', title: 'The Journey East', top: '675px', left: '60%' },
         { date: '500 BC', title: 'Blood of My Blood', top: '2640px', left: '10%' },
         { date: '220 AD', title: 'The Living Forest', top: '2900px', left: '65%' },
-        { date: '770 AD', title: 'The Rise of the Dragon', top: '3100px', left: '20%' }
+        { date: '770 AD', title: 'The Rise of the Dragon', top: '3100px', left: '20%' },
+        { date: '1293 AD', title: 'The Masamune Nihonto', top: '3500px', left: '65%' },
+        { date: '1332 AD', title: 'Glimpses of Huitzilopochtli', top: '3700px', left: '45%' },
+        { date: '1575 AD', title: 'The Fury of Horomatangi', top: '3900px', left: '25%' },
+        { date: '1642 AD', title: 'An Empire of Miracles', top: '4100px', left: '35%' },
+        { date: '1780 AD', title: 'The Formation of the Council', top: '4300px', left: '65%' },
+        { date: '1787 AD', title: 'The Great Breach', top: '4400px', left: '55%' },
+        { date: '1788 - 1790 AD', title: 'A New Age', top: '4500px', left: '35%' },
+        { date: '1791 AD', title: 'The First Resurrectionist', top: '4600px', left: '25%' },
+
     ];
 
     eventPositions.forEach(event => {

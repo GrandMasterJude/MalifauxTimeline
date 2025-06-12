@@ -41,39 +41,20 @@ body {
     width: 100%;
 }
 
-#id-6000BC {
-    height: 25rem;
-}
-
-#id-5000BC {
-    height: 25rem;
-}
-
-#id-4000BC {
-    height: 25rem;
-}
-
-#id-3000BC {
-    height: 25rem;
-}
-
-#id-2000BC {
-    height: 25rem;
-}
-
-#id-1000BC {
-    height: 25rem;
-}
-
-#id-0 {
-    height: 25rem;
-}
-
-#id-1000AD {
-    height: 25rem;
-}
-
-#id-1500AD {
+#id-6000BC,
+#id-5000BC,
+#id-4000BC,
+#id-3000BC,
+#id-2000BC,
+#id-1000BC,
+#id-0,
+#id-1000AD,
+#id-1500AD,
+#id-1600AD,
+#id-1700AD,
+#id-1800AD,
+#id-1900AD,
+#id-2000AD {
     height: 25rem;
 }
 
@@ -96,10 +77,7 @@ label.timeline-info {
     color: #010101;
     flex-basis: 50%;
     width: 50%;
-    /* height: 5000px; */
 }
-
-/* Add these styles to your existing index.css */
 
 /* Clickable event dots */
 .timeline-event-dot {

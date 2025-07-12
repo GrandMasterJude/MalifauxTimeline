@@ -5,51 +5,39 @@ const timelineContainer = document.querySelector('.timeline-container');
 const infoContainer = document.querySelector('.info-container');
 const timelineInfoPanels = document.querySelectorAll('.timeline-info');
 
-// Map dates to their corresponding info panel IDs for quick lookup
-const dateToInfoMap = {
-    '????': 'old-malifaux',
-    '???': 'the-tyrant-war',
-    '6000 BC': 'the-falling-star',
-    '5400 BC': 'the-journey-east',
-    '500 BC': 'blood-of-my-blood',
-    '220 AD': 'the-living-forest',
-    '770 AD': 'the-rise-of-the-dragon',
-    '1293 AD': 'the-masamune-nihonto',
-    '1332 AD': 'glimpses-of-huitzilopochtli',
-    '1575 AD': 'the-fury-of-horomatangi',
-    '1642 AD': 'an-empire-of-miracles',
-    '1780 AD': 'the-formation-of-the-council',
-    '1787 AD': 'the-great-breach',
-    '1788 - 1790 AD': 'a-new-age',
-    '1791 AD': 'the-first-resurrectionist',
-
-};
+// Global variables to store loaded data
+let eventData = [];
+let dateToInfoMap = {};
 
 // Track currently active event to avoid unnecessary updates
 let currentActiveEvent = null;
 
+// Load event data from JSON file
+async function loadEventData() {
+    try {
+        const response = await fetch('events.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        eventData = data.events;
+        
+        // Build the date to info map dynamically
+        dateToInfoMap = {};
+        eventData.forEach(event => {
+            dateToInfoMap[event.date] = event.infoId;
+        });
+        
+        return true;
+    } catch (error) {
+        console.error('Error loading event data:', error);
+        return false;
+    }
+}
+
 // Create and position clickable dots dynamically
 function initializeEventDots() {
-    const eventPositions = [
-        { date: '????', title: 'Old Malifaux', top: '90px', left: '45%' },
-        { date: '???', title: 'The Tyrant War', top: '170px', left: '55%' },
-        { date: '6000 BC', title: 'The Falling Star', top: '430px', left: '15%' },
-        { date: '5400 BC', title: 'The Journey East', top: '675px', left: '60%' },
-        { date: '500 BC', title: 'Blood of My Blood', top: '2640px', left: '10%' },
-        { date: '220 AD', title: 'The Living Forest', top: '2900px', left: '65%' },
-        { date: '770 AD', title: 'The Rise of the Dragon', top: '3100px', left: '20%' },
-        { date: '1293 AD', title: 'The Masamune Nihonto', top: '3500px', left: '65%' },
-        { date: '1332 AD', title: 'Glimpses of Huitzilopochtli', top: '3700px', left: '45%' },
-        { date: '1575 AD', title: 'The Fury of Horomatangi', top: '3900px', left: '25%' },
-        { date: '1642 AD', title: 'An Empire of Miracles', top: '4100px', left: '35%' },
-        { date: '1780 AD', title: 'The Formation of the Council', top: '4300px', left: '65%' },
-        { date: '1787 AD', title: 'The Great Breach', top: '4400px', left: '55%' },
-        { date: '1788 - 1790 AD', title: 'A New Age', top: '4500px', left: '35%' },
-        { date: '1791 AD', title: 'The First Resurrectionist', top: '4600px', left: '25%' },
-
-    ];
-
-    eventPositions.forEach(event => {
+    eventData.forEach(event => {
         const dot = document.createElement('div');
         dot.className = 'timeline-event-dot';
         dot.dataset.date = event.date;
@@ -174,7 +162,7 @@ function handleTimelineClick(event) {
 }
 
 // Initialize the timeline functionality
-function initializeTimeline() {
+async function initializeTimeline() {
     // Hide all info panels initially
     hideAllInfoPanels();
     
@@ -183,18 +171,23 @@ function initializeTimeline() {
         infoContainer.style.display = 'none';
     }
     
-    // Create clickable dots
-    initializeEventDots();
-    
-    // Add click event listener using event delegation
-    timelineContainer.addEventListener('click', handleTimelineClick);
-    
-    // Handle window resize to manage mobile/desktop transitions
-    window.addEventListener('resize', handleResize);
-    
-    // Optional: Show first event by default
-    // showInfoPanel('old-malifaux');
-    // document.querySelector('[data-date="????"]')?.classList.add('active');
+    // Load event data
+    if (await loadEventData()) {
+        // Create clickable dots
+        initializeEventDots();
+        
+        // Add click event listener using event delegation
+        timelineContainer.addEventListener('click', handleTimelineClick);
+        
+        // Handle window resize to manage mobile/desktop transitions
+        window.addEventListener('resize', handleResize);
+        
+        // Optional: Show first event by default
+        // showInfoPanel('old-malifaux');
+        // document.querySelector('[data-date="????"]')?.classList.add('active');
+    } else {
+        console.error('Failed to load event data. Timeline will not function.');
+    }
 }
 
 // Handle window resize events
@@ -210,7 +203,7 @@ function handleResize() {
 
 // Wait for DOM to be fully loaded
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeTimeline);
+    document.addEventListener('DOMContentLoaded', () => initializeTimeline());
 } else {
     initializeTimeline();
 }
